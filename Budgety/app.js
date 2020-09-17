@@ -1,21 +1,60 @@
+// Budget Controller
 var budgetController = (function () {
-  var x = 23;
+  // some code
+})();
 
-  var add = function (a) {
-    return x + a;
+// Ui Controller
+var UIController = (function () {
+  var DOMstrings = {
+    inputType: ".add__type",
+    inputDescription: ".add__description",
+    inputValue: ".add__value",
+    inputBtn: ".add__btn",
   };
   return {
-    publicTest: function (b) {
-      console.log(add(b));
+    getInput: function () {
+      return {
+        type: document.querySelector(DOMstrings.inputType).value, // will be wither inc or exp
+        description: document.querySelector(DOMstrings.inputDescription).value,
+        value: document.querySelector(DOMstrings.inputValue).value,
+      };
+    },
+    getDOMstrings: function () {
+      return DOMstrings;
     },
   };
 })();
 
-var UIController = (function () {
-  // some code
-})();
-
-
+// Global App Controller
 var controller = (function (budgetCtrl, UICtrl) {
-  
-})(budgetController, UIController); 
+  var setupEventListeners = function () {
+    var DOM = UICtrl.getDOMstrings();
+
+    document.querySelector(DOM.inputBtn).addEventListener("click", ctrlAddItem);
+
+    document.addEventListener("keypress", function (event) {
+      if (event.code === "Enter") {
+        ctrlAddItem();
+      }
+    });
+  };
+
+  var ctrlAddItem = function () {
+    // TODO 1. Get the field input data
+    var input = UICtrl.getInput();
+    // TODO 2. Add the item to the budget controller
+    // TODO 3. Add the new item to the UI
+    // TODO 4. Calculate the budget
+    // TODO 5. Display the budget on the UI
+  };
+
+  return {
+    init: function () {
+      console.log("Application Started");
+      setupEventListeners();
+    },
+  };
+})(budgetController, UIController);
+
+// Initialize application
+controller.init();
